@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 from datetime import timedelta
 
 from dotenv import load_dotenv
@@ -25,6 +26,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'rest_framework',
+    'corsheaders',
     "habit",
 ]
 
@@ -63,15 +66,23 @@ WSGI_APPLICATION = "config.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DB_NAME"),  # имя базы данных
-        "USER": os.getenv("DB_USER"),  # пользователь PostgreSQL
-        "PASSWORD": os.getenv("DB_PASSWORD"),  # пароль пользователя
-        "HOST": os.getenv("DB_HOST"),
-        "PORT": os.getenv("DB_PORT"),
-    }
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL'),
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": os.getenv("DB_NAME"),  # имя базы данных
+#         "USER": os.getenv("DB_USER"),  # пользователь PostgreSQL
+#         "PASSWORD": os.getenv("DB_PASSWORD"),  # пароль пользователя
+#         "HOST": os.getenv("DB_HOST"),
+#         "PORT": os.getenv("DB_PORT"),
+#     }
+# }
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -114,7 +125,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-AUTH_USER_MODEL = "users.User"
+# AUTH_USER_MODEL = "users.User"
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
