@@ -11,8 +11,10 @@ def send_habit_reminders():
     time_now = now.time()
 
     habits = Habit.objects.filter(
-        time__lte=time_now,
-        periodicity=1,
+        is_public=True,
+        time__hour=now.hour,
+        time__minute=now.minute,
+        periodicity=1
     ).select_related("user")
 
     for habit in habits:
