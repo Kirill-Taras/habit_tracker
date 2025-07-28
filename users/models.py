@@ -30,6 +30,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)  # Основной параметр — email
     is_active = models.BooleanField(default=True)  # Можно ли входить в аккаунт
     is_staff = models.BooleanField(default=False)  # Доступ в админку (для админов)
+    telegram_chat_id = models.CharField(max_length=100, blank=True, null=True)
 
     USERNAME_FIELD = 'email'  # Авторизация по email
     REQUIRED_FIELDS = []

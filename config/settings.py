@@ -168,13 +168,10 @@ CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
 CELERY_BEAT_SCHEDULE = {
-    'send_course_update_emails': {
-        'task': "materials.tasks.check_inactive_users",
-        'schedule': timedelta(days=1),  # Расписание выполнения задачи (например, каждые 10 минут)
-    },'deactivate_inactive_users': {
-        'task': 'users.tasks.deactivate_inactive_users',
-        'schedule': timedelta(days=1),
-        }
+    'send_habit_reminders': {
+        'task': 'habit.tasks.send_habit_reminders',
+        'schedule': timedelta(minutes=60),
+    },
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
