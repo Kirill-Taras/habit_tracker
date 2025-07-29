@@ -6,6 +6,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from .serializers import RegisterSerializer
 
+
 class RegisterView(APIView):
     permission_classes = [AllowAny]
 
@@ -14,9 +15,12 @@ class RegisterView(APIView):
         if serializer.is_valid():
             user = serializer.save()
             refresh = TokenObtainPairSerializer.get_token(user)
-            return Response({
-                'message': 'Пользователь зарегистрирован',
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
-            }, status=status.HTTP_201_CREATED)
+            return Response(
+                {
+                    "message": "Пользователь зарегистрирован",
+                    "refresh": str(refresh),
+                    "access": str(refresh.access_token),
+                },
+                status=status.HTTP_201_CREATED,
+            )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

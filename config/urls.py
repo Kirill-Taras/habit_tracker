@@ -7,22 +7,25 @@ from drf_yasg import openapi
 schema_view = get_schema_view(
     openapi.Info(
         title="Habit Tracker API",
-        default_version='v1',
+        default_version="v1",
         description="Документация к API трекера привычек с телеграм-ботом и напоминаниями",
         terms_of_service="https://example.com/terms/",
         contact=openapi.Contact(email="support@example.com"),
         license=openapi.License(name="BSD License"),
     ),
-        public=True,
-        permission_classes=(permissions.AllowAny,),
-    )
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('api/habit/', include('habit.urls')),
-    path('api/users/', include('users.urls')),
-    path('api/tg/', include('telegram_bot.urls')),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path("api/habit/", include("habit.urls")),
+    path("api/users/", include("users.urls")),
+    path("api/tg/", include("telegram_bot.urls")),
+    path(
+        "swagger/",
+        schema_view.with_ui("swagger", cache_timeout=0),
+        name="schema-swagger-ui",
+    ),
+    path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
 ]
-

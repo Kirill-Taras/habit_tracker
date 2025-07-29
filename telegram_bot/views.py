@@ -4,15 +4,16 @@ import json
 
 from users.models import User
 
+
 @csrf_exempt
 def telegram_webhook(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data = json.loads(request.body)
-        message = data.get('message', {})
-        text = message.get('text')
-        chat = message.get('chat', {})
-        chat_id = chat.get('id')
-        email = message.get('from', {}).get('username')
+        message = data.get("message", {})
+        text = message.get("text")
+        chat = message.get("chat", {})
+        chat_id = chat.get("id")
+        email = message.get("from", {}).get("username")
 
         if text == "/start":
             try:
@@ -24,5 +25,6 @@ def telegram_webhook(request):
                 reply = "Пользователь с таким email не найден."
 
             from habit.utils import send_telegram_message
+
             send_telegram_message(chat_id, reply)
         return JsonResponse({"ok": True})

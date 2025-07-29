@@ -26,13 +26,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'rest_framework',
-    'rest_framework_simplejwt',
-    'corsheaders',
-    'drf-yasg',
-    'habit',
-    'users',
-    'telegram_bot'
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "corsheaders",
+    "drf_yasg",
+    "habit",
+    "users",
+    "telegram_bot",
 ]
 
 MIDDLEWARE = [
@@ -43,7 +43,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
     "corsheaders.middleware.CorsMiddleware",
 ]
 
@@ -71,8 +71,8 @@ WSGI_APPLICATION = "config.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
+    "default": dj_database_url.config(
+        default=os.getenv("DATABASE_URL"),
         conn_max_age=600,
         conn_health_checks=True,
     )
@@ -124,10 +124,10 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
     ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 5,
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 5,
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 }
 
@@ -170,18 +170,18 @@ CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
 CELERY_BEAT_SCHEDULE = {
-    'send_habit_reminders': {
-        'task': 'habit.tasks.send_habit_reminders',
-        'schedule': timedelta(minutes=60),
+    "send_habit_reminders": {
+        "task": "habit.tasks.send_habit_reminders",
+        "schedule": timedelta(minutes=60),
     },
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.yandex.ru')
-EMAIL_PORT = os.getenv('EMAIL_PORT', 587)
-EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', True)
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.yandex.ru")
+EMAIL_PORT = os.getenv("EMAIL_PORT", 587)
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", True)
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
