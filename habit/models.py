@@ -54,7 +54,7 @@ class Habit(models.Model):
             raise ValidationError(_("Периодичность должна быть от 1 до 7 дней."))
 
     def __str__(self):
-        return f"{self.action} в {self.time.strftime('%H:%M')} ({self.user.username})"
+        return f"{self.action} в {self.time.strftime('%H:%M')} ({self.user.email})"
 
     class Meta:
         verbose_name = "Привычка"

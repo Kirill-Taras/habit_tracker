@@ -103,7 +103,7 @@ TIME_ZONE = "Europe/Moscow"
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -172,7 +172,7 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_BEAT_SCHEDULE = {
     "send_habit_reminders": {
         "task": "habit.tasks.send_habit_reminders",
-        "schedule": timedelta(minutes=60),
+        "schedule": timedelta(seconds=30),
     },
 }
 

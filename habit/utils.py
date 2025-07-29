@@ -1,7 +1,6 @@
-import os
 import requests
+from config.settings import TELEGRAM_BOT_TOKEN
 
-TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_API_URL = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
 
 
