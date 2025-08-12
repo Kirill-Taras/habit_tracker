@@ -1,4 +1,6 @@
 import os
+import sys
+
 import dj_database_url
 from datetime import timedelta
 
@@ -67,9 +69,6 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
 DATABASES = {
     "default": dj_database_url.config(
         default=os.getenv("DATABASE_URL"),
@@ -77,6 +76,15 @@ DATABASES = {
         conn_health_checks=True,
     )
 }
+
+if "test" in sys.argv:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": str(BASE_DIR / "test_db.sqlite3"),
+        }
+    }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -105,11 +113,8 @@ USE_I18N = True
 
 USE_TZ = False
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
