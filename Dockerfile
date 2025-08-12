@@ -1,5 +1,5 @@
 # Версия Python
-FROM python:3.13-sli
+FROM python:3.13-slim
 
 # 1. Устанавливаем системные зависимости
 RUN apt-get update && apt-get install -y \
