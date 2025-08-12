@@ -36,7 +36,6 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     ports:
       - "${DB_PORT}:5432"
-      -
   #Сервис Nginx
   nginx:
     image: nginx:1.25-alpine
@@ -66,7 +65,7 @@ services:
   # Celery Worker
   celery_worker:
     build: .
-    command: celery -A habit_tracker worker --loglevel=info
+    command: celery -A config worker --loglevel=info
     volumes:
       - .:/app
     env_file: .env
@@ -80,7 +79,7 @@ services:
   # Celery Beat
   celery_beat:
     build: .
-    command: celery -A habit_tracker beat --loglevel=info
+    command: celery -A config beat --loglevel=info
     volumes:
       - .:/app
     env_file: .env
