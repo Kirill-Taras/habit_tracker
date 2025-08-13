@@ -58,4 +58,4 @@ jobs:
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
         run: |
-          pytest --maxfail=1 --disable-warnings -q
+          python manage.py test 
