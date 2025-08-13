@@ -52,7 +52,12 @@ class HabitTests(APITestCase):
         """Тест получения публичных привычек."""
         user2 = User.objects.create_user(email="user2@example.com", password="pass")
         Habit.objects.create(
-            user=user2, place="офис", time="09:00", action="пить воду", is_public=True, execution_time=60,
+            user=user2,
+            place="офис",
+            time="09:00",
+            action="пить воду",
+            is_public=True,
+            execution_time=60,
         )
         url = reverse("habit-public-habits")
         self.client.logout()
