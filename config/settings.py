@@ -11,15 +11,12 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = "django-insecure-*j$1t8#s%ml5!vsv%7^l*e9dzac@p#os_in=$372d+if)(xbm$"
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-# Application definition
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -85,6 +82,23 @@ if "test" in sys.argv:
         }
     }
 
+elif os.getenv("USE_SQLITE", "False") == "True":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "test_db.sqlite3",
+        }
+    }
+
+else:
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=os.getenv("DATABASE_URL"),
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
+    }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -113,8 +127,11 @@ USE_I18N = True
 
 USE_TZ = False
 
-STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+STATIC_URL = "/static/"
+STATIC_ROOT = "/app/staticfiles"
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # if in local project has static
+]
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")

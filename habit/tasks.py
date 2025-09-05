@@ -9,9 +9,7 @@ def send_habit_reminders():
 
     now = timezone.now().time()
 
-    habits = Habit.objects.filter(
-        is_public=True, periodicity=1
-    ).select_related("user")
+    habits = Habit.objects.filter(is_public=True, periodicity=1).select_related("user")
 
     for habit in habits:
         chat_id = getattr(habit.user, "telegram_chat_id", None)

@@ -1,28 +1,28 @@
+# Версия Python
 FROM python:3.13-slim
 
-# Системные зависимости
+# 1. Устанавливаем системные зависимости
 RUN apt-get update && apt-get install -y \
     libpq-dev gcc \
     && rm -rf /var/lib/apt/lists/*
 
-# Переменные окружения
-ENV PYTHONUNBUFFERED=1
-ENV DJANGO_SETTINGS_MODULE=habit_tracker.settings
+# 2. Переменные окружения
+ENV PYTHONUNBUFFERED=1 \
+    DJANGO_SETTINGS_MODULE=config.settings \
+    PATH="/root/.local/bin:$PATH"
 
-# Устанавливаем рабочую директорию
+# 3. Рабочая директория внутри контейнера
 WORKDIR /app
 
-# Копируем зависимости
-COPY COPY requirements.txt .
-
-# Устанавливаем зависимости
+# 4. Копируем зависимости и устанавливаем их
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Копируем весь проект
+# 5. Копируем проект
 COPY . .
 
-# Порт, который будет использовать контейнер
+# 6. Открываем порт
 EXPOSE 8000
 
-# Команда запуска
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# 7. Команда запуска
+#CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
